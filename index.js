@@ -18,6 +18,12 @@ db.connect((err) => {
     console.log('Connecté à la base de données MySQL');
 });
 
+// Define users for basic authentication
+const users = {
+    admin: { password: 'adminpassword', role: 'admin' },
+    user: { password: 'userpassword', role: 'user' }
+};
+
 const basicAuth = (req, res, next) => {
     const authHeader = req.headers.authorization;
     if (!authHeader) {
@@ -341,5 +347,63 @@ app.get('/formulas', (req, res) => {
             return;
         }
         res.json(results);
+    });
+});
+
+// Route PATCH pour mettre à jour un item par ID (admin uniquement)
+app.patch('/item/:id', basicAuth, authorize('admin'), (req, res) => {
+    const { id } = req.params;
+    const updateData = req.body;
+    const sql = 'UPDATE item SET ? WHERE id = ?';
+    db.query(sql, [updateData, id], (err, result) => {
+        if (err) {
+            console.error('Erreur lors de la mise à jour de l\'item:', err);
+            res.status(500).send('Erreur lors de la mise à jour de l\'item');
+            return;
+        }
+        if (result.affectedRows === 0) {
+            res.status(404).send('Item non trouvé');
+        } else {
+            res.json({ message: 'Item mis à jour avec succès' });
+        }
+    });
+});
+
+// Route PATCH pour mettre à jour une categorie par ID (admin uniquement)
+app.patch('/categories/:id', basicAuth, authorize('admin'), (req, res) => {
+    const { id } = req.params;
+    const updateData = req.body;
+    const sql = 'UPDATE categories SET ? WHERE id = ?';
+    db.query(sql, [updateData, id], (err, result) => {
+        if (err) {
+            console.error('Erreur lors de la mise à jour de l\'categories:', err);
+            res.status(500).send('Erreur lors de la mise à jour de l\'categories');
+            return;
+        }
+        if (result.affectedRows === 0) {
+            res.status(404).send('categorie non trouvé');
+        } else {
+            res.json({ message: 'categorie mis à jour avec succès' });
+        }
+    });
+});
+
+
+// Route PATCH pour mettre à jour un formule par ID (admin uniquement)
+app.patch('/formulas/:id', basicAuth, authorize('admin'), (req, res) => {
+    const { id } = req.params;
+    const updateData = req.body;
+    const sql = 'UPDATE formulas SET ? WHERE id = ?';
+    db.query(sql, [updateData, id], (err, result) => {
+        if (err) {
+            console.error('Erreur lors de la mise à jour de l\'formulas:', err);
+            res.status(500).send('Erreur lors de la mise à jour de l\'formulas');
+            return;
+        }
+        if (result.affectedRows === 0) {
+            res.status(404).send('Formula non trouvé');
+        } else {
+            res.json({ message: 'Formula mis à jour avec succès' });
+        }
     });
 });

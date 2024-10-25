@@ -38,8 +38,8 @@ docker-compose up -d
 ```
 
   3. on accède à phpMyAdmin via [http://localhost:6060](http://localhost:6060) et on se connecte avec les identifiants suivants :
-    - **Nom d'utilisateur** : `root`
-    - **Mot de passe** : `teo`
+  - **Nom d'utilisateur** : `root`
+  - **Mot de passe** : `teo`
 
   La base de données `restaurantapi` sera déjà créée et on pourra y gérer les tables et données via phpMyAdmin.
 

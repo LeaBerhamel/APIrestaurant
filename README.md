@@ -166,5 +166,8 @@ Pour vérifier que les requêtes de l'API fonctionne, on utilise Postman :
   - on va sur l'onglet **Headers**
   
   ***Exemple***
-
-  |-Allow-|-GET, OPTIONS-|
+  |--------------|--------------|
+  | Allow        | GET, OPTIONS |
+  |--------------|--------------|
+  | Access       | Marseille    |
+  |--------------|--------------|

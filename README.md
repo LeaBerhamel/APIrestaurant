@@ -132,7 +132,7 @@ On utilise des méthodes HTTP : GET, POST, PUT, DELETE, PATCH, OPTIONS.
 ### Affichage des méthodes autorisées en fonction du type d'utilisateur
 
 ***OPTIONS***
-- 
+- cela s'affiche dès que l'URL `http://localhost:3000` est écrit.
 
 ### Tester l'API avec Postman
 
@@ -161,3 +161,6 @@ Pour vérifier que les requêtes de l'API fonctionne, on utilise Postman :
     "category_id": 1
   }
   ```
+
+4. Si on souhaite afficher les méthodes autorisées en fonction de l'utilisateur :
+  - on va sur l'onglet **Headers**

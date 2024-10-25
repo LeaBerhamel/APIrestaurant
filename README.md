@@ -6,8 +6,7 @@
 
 Ce projet consiste en une API REST conçue pour gérer des éléments, des catégories et des formules dans un restaurant. Développée avec Node.js, Express et MySQL, cette API intègre un contrôle d’accès basé sur les rôles et utilise une authentification basique pour certaines opérations. Elle permet également d'effectuer les requêtes GET et des opérations CRUD (Création, Lecture, Mise à jour, Suppression), dont certaines sont réservées aux administrateurs.
 
-
-### Prérequis
+**Prérequis**
 
 1. ***Docker*** : On l'utilise pour gérer la base de données MySQL et phpMyAdmin.  On utilise également Docker. [Télécharger Docker](https://www.docker.com/products/docker-desktop)
 2. ***Node.js*** : L'API est construite avec Node.js. [Installer Node.js](https://nodejs.org/en)
@@ -77,7 +76,6 @@ Ces identifiants sont utilisés pour accéder aux routes réservées aux adminis
 ***GET***
 
 - `GET /items` : Récupération de tous les items.
-
   URL : [http://localhost:3000/formulas](http://localhost:3000/formulas)
 - `GET /items/:id` : Récupération d'un item par son ID.
 
@@ -86,8 +84,13 @@ Ces identifiants sont utilisés pour accéder aux routes réservées aux adminis
 ***POST***
 - `POST /items` : Ajout d'un nouvel item (réservé aux administrateurs).
 
-  URL : []
+  URL : [localhost:3000/item](localhost:3000/item)
+
+***PUT***
 - `PUT /items/:id` : Mise à jour d'un item par son ID, remplacement de l'ensemble de la ressource (réservé aux administrateurs).
+
+  URL
+
 - `DELETE /items/:id` : Supression d'un item par son ID (réservée aux administrateurs).
 - `PATCH /items/:id` : Mise à jour d'un item par son ID, application des modifications partielles à la ressource (réservée aux administrateurs)
 

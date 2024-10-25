@@ -142,6 +142,7 @@ Pour vérifier que les requêtes de l'API fonctionne, on utilise Postman :
   - **raw**
   - **JSON**
   - On écrit les modifications qu'on souhaite effectuer.
+
   ***Exemple***
   ```json
   {

@@ -12,7 +12,7 @@
 
 #### Étape 1 : Installer les dépendances Node.js
 
-```bash
+```
 npm init -y
  
 npm install express
@@ -28,7 +28,7 @@ On utilise
 1. On télécharge le fichier `docker-compose.yml` dans le dossier du projet.
 2. On lance Docker pour configurer MySQL et phpMyAdmin :
 
-```bash
+```
 docker-compose up -d
 ```
 
@@ -42,7 +42,7 @@ La base de données `restaurantapi` sera déjà créée et on pourra y gérer le
 
 Une fois la base de données opérationnelle, on démarre le serveur API avec :
 
-```bash
+```
 node index.js
 ```
 
@@ -164,3 +164,6 @@ Pour vérifier que les requêtes de l'API fonctionne, on utilise Postman :
 
 4. Si on souhaite afficher les méthodes autorisées en fonction de l'utilisateur :
   - on va sur l'onglet **Headers**
+  
+  ***Exemple***
+  |Allow|GET, OPTIONS|

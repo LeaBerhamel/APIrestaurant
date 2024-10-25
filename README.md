@@ -39,8 +39,8 @@ docker-compose up -d
 ```
 
   3. on accède à phpMyAdmin via [http://localhost:6060](http://localhost:6060) et on se connecte avec les identifiants suivants :
-  - **Nom d'utilisateur** : `root`
-  - **Mot de passe** : `teo`
+  - ***Nom d'utilisateur*** : `root`
+  - ***Mot de passe*** : `teo`
 
   La base de données `restaurantapi` sera déjà créée et on pourra y gérer les tables et données via phpMyAdmin.
 
@@ -58,12 +58,12 @@ L'API sera disponible à l'adresse [http://localhost:3000](http://localhost:3000
 
 L'API utilise une authentification basique pour protéger certaines routes, en particulier celles réservées aux administrateurs. Deux comptes utilisateurs sont configurés :
 
-- **Admin** :
+- ***Admin*** :
   - Nom d'utilisateur : `admin`
   - Mot de passe : `adminpassword`
   - Rôle : `admin`
   
-- **User** :
+- ***User*** :
   - Nom d'utilisateur : `user`
   - Mot de passe : `userpassword`
   - Rôle : `user`
@@ -83,8 +83,10 @@ Ces identifiants sont utilisés pour accéder aux routes réservées aux adminis
 
   URL : [http://localhost:3000/formulas/1](http://localhost:3000/formulas/1)
 
-##### POST
+***POST***
 - `POST /items` : Ajout d'un nouvel item (réservé aux administrateurs).
+
+  URL : []
 - `PUT /items/:id` : Mise à jour d'un item par son ID, remplacement de l'ensemble de la ressource (réservé aux administrateurs).
 - `DELETE /items/:id` : Supression d'un item par son ID (réservée aux administrateurs).
 - `PATCH /items/:id` : Mise à jour d'un item par son ID, application des modifications partielles à la ressource (réservée aux administrateurs)

@@ -9,9 +9,9 @@ Ce projet consiste en une API REST conçue pour gérer des éléments, des caté
 
 ### Prérequis
 
-1. \_Docker\_ : on l'utilise pour gérer la base de données MySQL et phpMyAdmin.  On utilise également Docker. [Télécharger Docker](https://www.docker.com/products/docker-desktop)
-2. **Node.js** : L'API est construite avec Node.js. [Installer Node.js](https://nodejs.org/en)
-3. **Postman** : on l'utilise pour tester les routes de l'API. On télécharge Postman afin de pouvoir tester les routes configurées.
+1. ***Docker***: on l'utilise pour gérer la base de données MySQL et phpMyAdmin.  On utilise également Docker. [Télécharger Docker](https://www.docker.com/products/docker-desktop)
+2. ***Node.js*** : L'API est construite avec Node.js. [Installer Node.js](https://nodejs.org/en)
+3. ***Postman*** : on l'utilise pour tester les routes de l'API. On télécharge Postman afin de pouvoir tester les routes configurées.
 
 ### Installation et Configuration
 

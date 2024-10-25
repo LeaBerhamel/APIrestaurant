@@ -74,16 +74,14 @@ Ces identifiants sont utilisés pour accéder aux routes réservées aux adminis
 
 #### Items
 
-##### GET
+##### ***GET***
 
 - `GET /items` : Récupération de tous les items.
 URL : [http://localhost:3000/formulas](http://localhost:3000/formulas)
-
 - `GET /items/:id` : Récupération d'un item par son ID.
 URL : [http://localhost:3000/formulas/1](http://localhost:3000/formulas/1)
 
 ##### POST
-
 - `POST /items` : Ajout d'un nouvel item (réservé aux administrateurs).
 - `PUT /items/:id` : Mise à jour d'un item par son ID, remplacement de l'ensemble de la ressource (réservé aux administrateurs).
 - `DELETE /items/:id` : Supression d'un item par son ID (réservée aux administrateurs).

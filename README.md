@@ -125,23 +125,31 @@ On utilise des méthodes HTTP : GET, POST, PUT, DELETE, PATCH, OPTIONS.
 
 #### Filtre 
 
+***GET***
 - `GET /item?parameters=` : Filtrer les items en fonction du paramètre (nom, description, prix et catégorie).
 - `GET /formulas?parameters=` : Filtrer les formules en fonction du paramètre (nom, prix et catégorie)
+
+### Affichage des méthodes autorisées en fonction du type d'utilisateur
+
+***OPTIONS***
+- 
 
 ### Tester l'API avec Postman
 
 Pour vérifier que les requêtes de l'API fonctionne, on utilise Postman :
 
 1. On ajoute au début de l'URL `http://localhost:3000` dans les requêtes.
+
 2. Pour choisir le type d'utilisateur qu'on souhaite être :
-  - **Authorization**.
-  - **Basic Auth**.
-  - On écrit l'identifiant et le mot de passe de l'utilisateur qu'on veut tester
+  - on va sur l'onglet **Authorization**.
+  - puis sur **Basic Auth**.
+  - on écrit l'identifiant et le mot de passe de l'utilisateur qu'on veut tester
+
 3. Si on souhaite mettre à jour des données avec les commandes PUT et PATCH :
-  - **Body**
-  - **raw**
-  - **JSON**
-  - On écrit les modifications qu'on souhaite effectuer.
+  - on va sur l'onglet **Body**
+  - puis sur **raw**
+  - on choisit **JSON**
+  - on écrit les modifications qu'on souhaite effectuer.
 
   ***Exemple***
   ```json

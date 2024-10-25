@@ -4,12 +4,12 @@
 
 ### Introduction
 
-Ce projet consiste en une API REST conçue pour gérer des éléments, des catégories et des formules dans un restaurant. Développée avec Node.js, Express et MySQL, cette API intègre un contrôle d’accès basé sur les rôles et utilise une authentification basique pour certaines opérations. Elle permet également d'utiliser les requêtes GET et d’effectuer des opérations CRUD (Création, Lecture, Mise à jour, Suppression), dont certaines sont réservées aux administrateurs.
+Ce projet consiste en une API REST conçue pour gérer des éléments, des catégories et des formules dans un restaurant. Développée avec Node.js, Express et MySQL, cette API intègre un contrôle d’accès basé sur les rôles et utilise une authentification basique pour certaines opérations. Elle permet également d'effectuer les requêtes GET et des opérations CRUD (Création, Lecture, Mise à jour, Suppression), dont certaines sont réservées aux administrateurs.
 
 
 ### Prérequis
 
-1. **Docker** : on l'utilise pour gérer la base de données MySQL et phpMyAdmin.  On utilise également Docker. [Télécharger Docker](https://www.docker.com/products/docker-desktop)
+1. <u> Docker <u> : on l'utilise pour gérer la base de données MySQL et phpMyAdmin.  On utilise également Docker. [Télécharger Docker](https://www.docker.com/products/docker-desktop)
 2. **Node.js** : L'API est construite avec Node.js. [Installer Node.js](https://nodejs.org/en)
 3. **Postman** : on l'utilise pour tester les routes de l'API. On télécharge Postman afin de pouvoir tester les routes configurées.
 

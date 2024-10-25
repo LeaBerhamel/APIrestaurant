@@ -41,7 +41,7 @@ docker-compose up -d
     - **Nom d'utilisateur** : `root`
     - **Mot de passe** : `teo`
 
-    La base de données `restaurantapi` sera déjà créée et on pourra y gérer les tables et données via phpMyAdmin.
+  La base de données `restaurantapi` sera déjà créée et on pourra y gérer les tables et données via phpMyAdmin.
 
 #### Étape 3 : Démarrer le Serveur API
 

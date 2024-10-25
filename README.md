@@ -58,24 +58,32 @@ L'API sera disponible à l'adresse [http://localhost:3000](http://localhost:3000
 
 L'API utilise une authentification basique pour protéger certaines routes, en particulier celles réservées aux administrateurs. Deux comptes utilisateurs sont configurés :
 
-|- **Admin** :
- - Nom d'utilisateur : `admin`
- - Mot de passe : `adminpassword`
- - Rôle : `admin`|
+- **Admin** :
+  - Nom d'utilisateur : `admin`
+  - Mot de passe : `adminpassword`
+  - Rôle : `admin`
   
-|- **User** :
- - Nom d'utilisateur : `user`
- - Mot de passe : `userpassword`
- - Rôle : `user`|
+- **User** :
+  - Nom d'utilisateur : `user`
+  - Mot de passe : `userpassword`
+  - Rôle : `user`
 
-Ces identifiants sont utilisés pour accéder aux routes protégées.
+Ces identifiants sont utilisés pour accéder aux routes réservées aux administrateurs.
 
 ### Endpoints de l'API
 
 #### Items
 
+##### GET
+
 - `GET /items` : Récupération de tous les items.
+URL : [http://localhost:3000/formulas](http://localhost:3000/formulas)
+
 - `GET /items/:id` : Récupération d'un item par son ID.
+URL : [http://localhost:3000/formulas/1](http://localhost:3000/formulas/1)
+
+##### POST
+
 - `POST /items` : Ajout d'un nouvel item (réservé aux administrateurs).
 - `PUT /items/:id` : Mise à jour d'un item par son ID, remplacement de l'ensemble de la ressource (réservé aux administrateurs).
 - `DELETE /items/:id` : Supression d'un item par son ID (réservée aux administrateurs).

@@ -9,9 +9,9 @@ Ce projet consiste en une API REST conçue pour gérer des éléments, des caté
 
 ### Prérequis
 
-1. ***Docker***: on l'utilise pour gérer la base de données MySQL et phpMyAdmin.  On utilise également Docker. [Télécharger Docker](https://www.docker.com/products/docker-desktop)
+1. ***Docker*** : On l'utilise pour gérer la base de données MySQL et phpMyAdmin.  On utilise également Docker. [Télécharger Docker](https://www.docker.com/products/docker-desktop)
 2. ***Node.js*** : L'API est construite avec Node.js. [Installer Node.js](https://nodejs.org/en)
-3. ***Postman*** : on l'utilise pour tester les routes de l'API. On télécharge Postman afin de pouvoir tester les routes configurées.
+3. ***Postman*** : On l'utilise pour tester les routes de l'API. On télécharge Postman afin de pouvoir tester les routes configurées. [Télécharger Postman](https://www.postman.com/downloads/)
 
 ### Installation et Configuration
 
@@ -58,15 +58,15 @@ L'API sera disponible à l'adresse [http://localhost:3000](http://localhost:3000
 
 L'API utilise une authentification basique pour protéger certaines routes, en particulier celles réservées aux administrateurs. Deux comptes utilisateurs sont configurés :
 
-- **Admin** :
-  - Nom d'utilisateur : `admin`
-  - Mot de passe : `adminpassword`
-  - Rôle : `admin`
+|- **Admin** :
+ - Nom d'utilisateur : `admin`
+ - Mot de passe : `adminpassword`
+ - Rôle : `admin`|
   
-- **User** :
-  - Nom d'utilisateur : `user`
-  - Mot de passe : `userpassword`
-  - Rôle : `user`
+|- **User** :
+ - Nom d'utilisateur : `user`
+ - Mot de passe : `userpassword`
+ - Rôle : `user`|
 
 Ces identifiants sont utilisés pour accéder aux routes protégées.
 

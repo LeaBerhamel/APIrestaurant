@@ -171,3 +171,4 @@ Pour vérifier que les requêtes de l'API fonctionne, on utilise Postman :
   |------------------------------|--------------|
   | Allow                        | GET, OPTIONS |
   | Access-Control-Allow-Methods | GET, OPTIONS |
+  | Access-Control-Allow-Origin  | *            |

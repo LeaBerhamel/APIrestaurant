@@ -2,7 +2,8 @@ const express = require('express');
 const app = express();
 const port = 3000;
 const mysql = require('mysql2');
- 
+
+
 const db = mysql.createConnection({
     host: 'localhost',  // hôte, en général 'localhost' pour phpMyAdmin local
     user: 'root',       // ton nom d'utilisateur MySQL
@@ -60,6 +61,7 @@ app.listen(port, () => {
 // Pour utiliser le middleware JSON
 app.use(express.json());
 
+// ITEMS
 // Route pour récupérer un item par ID
 app.get('/item/:id', (req, res) => {
     const { id } = req.params;
@@ -129,6 +131,64 @@ app.delete('/item/:id', basicAuth, authorize('admin'), (req, res) => {
     });
 });
 
+// Route pour filtrer et avoir tous les items
+app.get('/item', (req, res) => {
+    const { name, price, description, category_id } = req.query;
+    // Début de la requête SQL
+    let sql = 'SELECT * FROM item WHERE 1=1';
+    const params = [];
+ 
+    // Ajout des filtres
+    if (name) {
+        sql += ' AND name LIKE ?';
+        params.push(`%${name}%`);
+    }
+    if (price) {
+        sql += ' AND price = ?';
+        params.push(price);
+    }
+    if (description) {
+        sql += ' AND description LIKE ?';
+        params.push(`%${description}%`);
+    }
+    if (category_id) {
+        sql += ' AND category_id = ?';
+        params.push(category_id);
+    }
+ 
+    // Exécution de la requête
+    db.query(sql, params, (err, results) => {
+        if (err) {
+            console.error('Erreur lors de la récupération des item:', err);
+            res.status(500).send('Erreur lors de la récupération des item');
+            return;
+        }
+ 
+        // Envoi du résultat en JSON
+        res.json(results);
+    });
+});
+
+// Route PATCH pour mettre à jour un item par ID (admin uniquement)
+app.patch('/item/:id', basicAuth, authorize('admin'), (req, res) => {
+    const { id } = req.params;
+    const updateData = req.body;
+    const sql = 'UPDATE item SET ? WHERE id = ?';
+    db.query(sql, [updateData, id], (err, result) => {
+        if (err) {
+            console.error('Erreur lors de la mise à jour de l\'item:', err);
+            res.status(500).send('Erreur lors de la mise à jour de l\'item');
+            return;
+        }
+        if (result.affectedRows === 0) {
+            res.status(404).send('Item non trouvé');
+        } else {
+            res.json({ message: 'Item mis à jour avec succès' });
+        }
+    });
+});
+
+// CATEGORIES
 // Route pour récupérer toutes les categories
 app.get('/categories', (req, res) => {
     const sql = 'SELECT * FROM categories';
@@ -212,6 +272,26 @@ app.delete('/categories/:id', basicAuth, authorize('admin'), (req, res) => {
     });
 });
 
+// Route PATCH pour mettre à jour une categorie par ID (admin uniquement)
+app.patch('/categories/:id', basicAuth, authorize('admin'), (req, res) => {
+    const { id } = req.params;
+    const updateData = req.body;
+    const sql = 'UPDATE categories SET ? WHERE id = ?';
+    db.query(sql, [updateData, id], (err, result) => {
+        if (err) {
+            console.error('Erreur lors de la mise à jour de l\'categories:', err);
+            res.status(500).send('Erreur lors de la mise à jour de l\'categories');
+            return;
+        }
+        if (result.affectedRows === 0) {
+            res.status(404).send('categorie non trouvé');
+        } else {
+            res.json({ message: 'categorie mis à jour avec succès' });
+        }
+    });
+});
+
+// FORMULAS
 // Route pour récupérer formulas par ID
 app.get('/formulas/:id', (req, res) => {
     const { id } = req.params;
@@ -281,45 +361,6 @@ app.delete('/formulas/:id', basicAuth, authorize('admin'), (req, res) => {
     });
 });
 
-// Route pour filtrer et avoir tous les items
-app.get('/item', (req, res) => {
-    const { name, price, description, category_id } = req.query;
-    // Début de la requête SQL
-    let sql = 'SELECT * FROM item WHERE 1=1';
-    const params = [];
- 
-    // Ajout des filtres
-    if (name) {
-        sql += ' AND name LIKE ?';
-        params.push(`%${name}%`);
-    }
-    if (price) {
-        sql += ' AND price = ?';
-        params.push(price);
-    }
-    if (description) {
-        sql += ' AND description LIKE ?';
-        params.push(`%${description}%`);
-    }
-    if (category_id) {
-        sql += ' AND category_id = ?';
-        params.push(category_id);
-    }
- 
-    // Exécution de la requête
-    db.query(sql, params, (err, results) => {
-        if (err) {
-            console.error('Erreur lors de la récupération des item:', err);
-            res.status(500).send('Erreur lors de la récupération des item');
-            return;
-        }
- 
-        // Envoi du résultat en JSON
-        res.json(results);
-    });
-});
-
-
 // Route pour filtrer les formules et avoir tous les formules
 app.get('/formulas', (req, res) => {
     const { name, price, categories } = req.query;
@@ -350,45 +391,6 @@ app.get('/formulas', (req, res) => {
     });
 });
 
-// Route PATCH pour mettre à jour un item par ID (admin uniquement)
-app.patch('/item/:id', basicAuth, authorize('admin'), (req, res) => {
-    const { id } = req.params;
-    const updateData = req.body;
-    const sql = 'UPDATE item SET ? WHERE id = ?';
-    db.query(sql, [updateData, id], (err, result) => {
-        if (err) {
-            console.error('Erreur lors de la mise à jour de l\'item:', err);
-            res.status(500).send('Erreur lors de la mise à jour de l\'item');
-            return;
-        }
-        if (result.affectedRows === 0) {
-            res.status(404).send('Item non trouvé');
-        } else {
-            res.json({ message: 'Item mis à jour avec succès' });
-        }
-    });
-});
-
-// Route PATCH pour mettre à jour une categorie par ID (admin uniquement)
-app.patch('/categories/:id', basicAuth, authorize('admin'), (req, res) => {
-    const { id } = req.params;
-    const updateData = req.body;
-    const sql = 'UPDATE categories SET ? WHERE id = ?';
-    db.query(sql, [updateData, id], (err, result) => {
-        if (err) {
-            console.error('Erreur lors de la mise à jour de l\'categories:', err);
-            res.status(500).send('Erreur lors de la mise à jour de l\'categories');
-            return;
-        }
-        if (result.affectedRows === 0) {
-            res.status(404).send('categorie non trouvé');
-        } else {
-            res.json({ message: 'categorie mis à jour avec succès' });
-        }
-    });
-});
-
-
 // Route PATCH pour mettre à jour un formule par ID (admin uniquement)
 app.patch('/formulas/:id', basicAuth, authorize('admin'), (req, res) => {
     const { id } = req.params;
@@ -405,5 +407,30 @@ app.patch('/formulas/:id', basicAuth, authorize('admin'), (req, res) => {
         } else {
             res.json({ message: 'Formula mis à jour avec succès' });
         }
+    });
+});
+
+// Route OPTIONS pour afficher les méthodes autorisées
+app.options('', basicAuth, (req, res) => {
+    let allowedMethods;
+
+    if (req.user.role === 'admin') {
+        // Méthodes disponibles pour l'admin
+        allowedMethods = 'GET, POST, PUT, PATCH, DELETE, OPTIONS';
+        res.set('Allow', allowedMethods);
+        res.set('Access-Control-Allow-Methods', allowedMethods);
+    } else if (req.user.role === 'user') {
+        // Méthodes disponibles pour le client
+        allowedMethods = 'GET, OPTIONS';
+        res.set('Allow', allowedMethods);
+        res.set('Access-Control-Allow-Methods', allowedMethods);
+    } else {
+        return res.status(403).send('Rôle non autorisé');
+    }
+
+    res.set('Access-Control-Allow-Origin', '*'); // Configurer selon les besoins
+    res.status(200).json({
+        message: 'Méthodes autorisées',
+        allowedMethods: allowedMethods
     });
 });

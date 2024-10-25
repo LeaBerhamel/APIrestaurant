@@ -4,7 +4,8 @@
 
 ### Introduction
 
-Ce projet consiste en une API REST conçue pour gérer des éléments, des catégories et des formules dans un restaurant. Développée avec Node.js, Express et MySQL, cette API intègre un contrôle d’accès basé sur les rôles et utilise une authentification basique pour certaines opérations. Elle permet également de filtrer les requêtes GET et d’effectuer des opérations CRUD (Création, Lecture, Mise à jour, Suppression), dont certaines sont réservées aux administrateurs.
+Ce projet consiste en une API REST conçue pour gérer des éléments, des catégories et des formules dans un restaurant. Développée avec Node.js, Express et MySQL, cette API intègre un contrôle d’accès basé sur les rôles et utilise une authentification basique pour certaines opérations. Elle permet également d'utiliser les requêtes GET et d’effectuer des opérations CRUD (Création, Lecture, Mise à jour, Suppression), dont certaines sont réservées aux administrateurs.
+
 
 ### Prérequis
 
@@ -59,13 +60,13 @@ L'API utilise une authentification basique pour protéger certaines routes, en p
 
 - **Admin** :
   - Nom d'utilisateur : `admin`
-  - Mot de passe : `admin1234`
+  - Mot de passe : `adminpassword`
   - Rôle : `admin`
   
-- **Client** :
-  - Nom d'utilisateur : `client`
-  - Mot de passe : `client1234`
-  - Rôle : `client`
+- **User** :
+  - Nom d'utilisateur : `user`
+  - Mot de passe : `userpassword`
+  - Rôle : `user`
 
 Ces identifiants sont utilisés pour accéder aux routes protégées.
 
@@ -73,30 +74,33 @@ Ces identifiants sont utilisés pour accéder aux routes protégées.
 
 #### Items
 
-- `GET /items` : Récupérer tous les items.
-- `GET /items/:id` : Récupérer un item par son ID.
-- `POST /items` : Ajouter un nouvel item (réservé aux administrateurs).
-- `PUT /items/:id` : Mettre à jour un item par son ID (réservé aux administrateurs).
-- `DELETE /items/:id` : Supprimer un item par son ID (réservé aux administrateurs).
+- `GET /items` : Récupération de tous les items.
+- `GET /items/:id` : Récupération d'un item par son ID.
+- `POST /items` : Ajout d'un nouvel item (réservé aux administrateurs).
+- `PUT /items/:id` : Mise à jour d'un item par son ID, remplacement de l'ensemble de la ressource (réservé aux administrateurs).
+- `DELETE /items/:id` : Supression d'un item par son ID (réservée aux administrateurs).
+- `PATCH /items/:id` : Mise à jour d'un item par son ID, application des modifications partielles à la ressource (réservée aux administrateurs)
 
 #### Catégories
 
-- `GET /categories` : Récupérer toutes les catégories.
-- `GET /categories/:id` : Récupérer une catégorie par son ID.
-- `POST /categories` : Ajouter une nouvelle catégorie (réservé aux administrateurs).
-- `PUT /categories/:id` : Mettre à jour une catégorie par son ID (réservé aux administrateurs).
-- `DELETE /categories/:id` : Supprimer une catégorie par son ID (réservé aux administrateurs).
+- `GET /categories` : Récupération de toutes les catégories.
+- `GET /categories/:id` : Récupération d'une catégorie par son ID.
+- `POST /categories` : Ajout d'une nouvelle catégorie (réservé aux administrateurs).
+- `PUT /categories/:id` : Mise à jour d'une catégorie par son ID, remplacement de la ressource entière (réservé aux administrateurs).
+- `DELETE /categories/:id` : Suppression d'une catégorie par son ID (réservé aux administrateurs).
+- `PATCH /categories/:id` : Mise à jour d'une catégorie par son ID, application des modifications partielles à la ressource (réservée aux administrateurs).
 
 #### Formules
 
-- `GET /formulas` : Récupérer toutes les formules (filtrage par nom, prix, et catégorie disponible).
-- `GET /formulas/:id` : Récupérer une formule par son ID.
-- `POST /formulas` : Ajouter une nouvelle formule (réservé aux admins).
-- `PUT /formulas/:id` : Mettre à jour une formule par son ID (réservé aux admins).
-- `DELETE /formulas/:id` : Supprimer une formule par son ID (réservé aux admins).
+- `GET /formulas` : Récupération de toutes les formules (filtrage par nom, prix, et catégorie disponible).
+- `GET /formulas/:id` : Récupération d'une formule par son ID.
+- `POST /formulas` : Ajout d'une nouvelle formule (réservé aux administrateurs).
+- `PUT /formulas/:id` : Mise à jour d'une formule par son ID, remplacement de la ressource entière (réservé aux administrateurs).
+- `DELETE /formulas/:id` : Suppression d'une formule par son ID (réservée aux administrateurs).
+- `PATCH /formulas/:id` : Mise à jour d'une formule par son ID, application des modifications partielles à la ressource (réservée aux administrateurs).
 
 #### Filtrage 
-- `GET /item?parameters=` : Filtrer les items en fonction du paramètre (nom, prix et catégorie).
+- `GET /item?parameters=` : Filtrer les items en fonction du paramètre (nom, descriptprix et catégorie).
 - `GET /formulas?parameters=` : Filtrer les formules en fonction du paramètre (nom, prix et catégorie)
 
 ### Tester l'API avec Postman

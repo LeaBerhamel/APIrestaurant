@@ -167,7 +167,7 @@ Pour vérifier que les requêtes de l'API fonctionne, on utilise Postman :
   
   ***Exemple***
 
-  
+  |              |              |
   |--------------|--------------|
   | Allow        | GET, OPTIONS |
   |--------------|--------------|

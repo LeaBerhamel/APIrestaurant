@@ -74,7 +74,7 @@ Ces identifiants sont utilisés pour accéder aux routes réservées aux adminis
 
 #### Items
 
-##### ***GET***
+***GET***
 
 - `GET /items` : Récupération de tous les items.
 URL : [http://localhost:3000/formulas](http://localhost:3000/formulas)

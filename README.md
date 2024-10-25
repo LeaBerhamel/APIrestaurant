@@ -2,21 +2,15 @@
 
 ## Documentation de l’API Restaurant
 
-### Introduction
+### Installation
 
-Ce projet consiste en une API REST conçue pour gérer des éléments, des catégories et des formules dans un restaurant. Développée avec Node.js, Express et MySQL, cette API intègre un contrôle d’accès basé sur les rôles et utilise une authentification basique pour certaines opérations. Elle permet également d'effectuer les requêtes GET et des opérations CRUD (Création, Lecture, Mise à jour, Suppression), dont certaines sont réservées aux administrateurs.
-
-**Prérequis**
-
-1. ***Docker*** : On l'utilise pour gérer la base de données MySQL et phpMyAdmin.  On utilise également Docker. [Télécharger Docker](https://www.docker.com/products/docker-desktop)
-2. ***Node.js*** : L'API est construite avec Node.js. [Installer Node.js](https://nodejs.org/en)
-3. ***Postman*** : On l'utilise pour tester les routes de l'API. On télécharge Postman afin de pouvoir tester les routes configurées. [Télécharger Postman](https://www.postman.com/downloads/)
+1. ***Docker*** : On l'utilise pour créer la base de données MySQL et phpMyAdmin. [Télécharger Docker](https://www.docker.com/products/docker-desktop)
+2. ***Node.js*** : L'API est construite grâce Node.js. [Installer Node.js](https://nodejs.org/en)
+3. ***Postman*** : On l'utilise pour tester les routes de l'API. [Télécharger Postman](https://www.postman.com/downloads/)
 
 ### Installation et Configuration
 
 #### Étape 1 : Installer les dépendances Node.js
-
-Pour démarrer, on installe les dépendances nécessaires grâce aux commandes suivantes : 
 
 ```bash
 npm init -y
@@ -25,23 +19,24 @@ npm install express
  
 npm install mysql2
 ```
+On utilise 
+- express pour simplifier la gestion des requêtes HTTP, des routes et des middleware (fonction dans une application web qui se situe entre la requête d’un client et la réponse du serveur)
+- mysql2, une bibliothèque pour intéragir avec des bases de données MySQL
 
 #### Étape 2 : Configuration de MySQL et phpMyAdmin avec Docker
 
-On utilise Docker pour effectuer la configuration de MySQL et phMyAdmin
-
-  1. on télécharge le fichier `docker-compose.yml` dans le répertoire racine du projet.
-  2. on lance Docker pour configurer MySQL et phpMyAdmin :
+1. On télécharge le fichier `docker-compose.yml` dans le dossier du projet.
+2. On lance Docker pour configurer MySQL et phpMyAdmin :
 
 ```bash
 docker-compose up -d
 ```
 
-  3. on accède à phpMyAdmin via [http://localhost:6060](http://localhost:6060) et on se connecte avec les identifiants suivants :
-  - ***Nom d'utilisateur*** : `root`
-  - ***Mot de passe*** : `teo`
+3. On accède à phpMyAdmin via [http://localhost:6060](http://localhost:6060) et on se connecte avec les identifiants suivants :
+- ***Nom d'utilisateur*** : `root`
+- ***Mot de passe*** : `teo`
 
-  La base de données `restaurantapi` sera déjà créée et on pourra y gérer les tables et données via phpMyAdmin.
+La base de données `restaurantapi` sera déjà créée et on pourra y gérer les tables et données via phpMyAdmin.
 
 #### Étape 3 : Démarrer le Serveur API
 
@@ -55,73 +50,105 @@ L'API sera disponible à l'adresse [http://localhost:3000](http://localhost:3000
 
 ### Authentification
 
-L'API utilise une authentification basique pour protéger certaines routes, en particulier celles réservées aux administrateurs. Deux comptes utilisateurs sont configurés :
+L'API utilise une authentification basique pour limiter l'accès à certaines routes aux administrateurs. On configure deux types d'utilisateurs : 
 
-- ***Admin*** :
+- ***Administrateur*** :
   - Nom d'utilisateur : `admin`
   - Mot de passe : `adminpassword`
   - Rôle : `admin`
   
-- ***User*** :
+- ***Utilisateur*** :
   - Nom d'utilisateur : `user`
   - Mot de passe : `userpassword`
   - Rôle : `user`
 
-Ces identifiants sont utilisés pour accéder aux routes réservées aux administrateurs.
+### Endpoints de l'API (URL spécifiques sur un serveur web qui permettent aux clients d'accéder à des bases de données ou des services via à l'API)
 
-### Endpoints de l'API
+On utilise des méthodes HTTP : GET, POST, PUT, DELETE, PATCH, OPTIONS.
 
 #### Items
 
 ***GET***
-
 - `GET /items` : Récupération de tous les items.
-  URL : [http://localhost:3000/formulas](http://localhost:3000/formulas)
 - `GET /items/:id` : Récupération d'un item par son ID.
 
-  URL : [http://localhost:3000/formulas/1](http://localhost:3000/formulas/1)
 
 ***POST***
 - `POST /items` : Ajout d'un nouvel item (réservé aux administrateurs).
 
-  URL : [localhost:3000/item](localhost:3000/item)
 
 ***PUT***
 - `PUT /items/:id` : Mise à jour d'un item par son ID, remplacement de l'ensemble de la ressource (réservé aux administrateurs).
 
-  URL
 
+***DELETE***
 - `DELETE /items/:id` : Supression d'un item par son ID (réservée aux administrateurs).
+
+***PATCH***
 - `PATCH /items/:id` : Mise à jour d'un item par son ID, application des modifications partielles à la ressource (réservée aux administrateurs)
 
 #### Catégories
 
+***GET***
 - `GET /categories` : Récupération de toutes les catégories.
 - `GET /categories/:id` : Récupération d'une catégorie par son ID.
+
+***POST***
 - `POST /categories` : Ajout d'une nouvelle catégorie (réservé aux administrateurs).
+
+***PUT***
 - `PUT /categories/:id` : Mise à jour d'une catégorie par son ID, remplacement de la ressource entière (réservé aux administrateurs).
+
+***DELETE***
 - `DELETE /categories/:id` : Suppression d'une catégorie par son ID (réservé aux administrateurs).
+
+***PATCH***
 - `PATCH /categories/:id` : Mise à jour d'une catégorie par son ID, application des modifications partielles à la ressource (réservée aux administrateurs).
 
 #### Formules
 
+***GET***
 - `GET /formulas` : Récupération de toutes les formules (filtrage par nom, prix, et catégorie disponible).
 - `GET /formulas/:id` : Récupération d'une formule par son ID.
+
+***POST***
 - `POST /formulas` : Ajout d'une nouvelle formule (réservé aux administrateurs).
+
+***PUT***
 - `PUT /formulas/:id` : Mise à jour d'une formule par son ID, remplacement de la ressource entière (réservé aux administrateurs).
+
+***DELETE***
 - `DELETE /formulas/:id` : Suppression d'une formule par son ID (réservée aux administrateurs).
+
+***PATCH***
 - `PATCH /formulas/:id` : Mise à jour d'une formule par son ID, application des modifications partielles à la ressource (réservée aux administrateurs).
 
-#### Filtrage 
-- `GET /item?parameters=` : Filtrer les items en fonction du paramètre (nom, descriptprix et catégorie).
+#### Filtre 
+
+- `GET /item?parameters=` : Filtrer les items en fonction du paramètre (nom, description, prix et catégorie).
 - `GET /formulas?parameters=` : Filtrer les formules en fonction du paramètre (nom, prix et catégorie)
 
 ### Tester l'API avec Postman
 
-Pour tester l'API dans Postman :
+Pour vérifier que les requêtes de l'API fonctionne, on utilise Postman :
 
-1. on ajoute l'URL de base `http://localhost:3000` dans les requêtes.
-2. Pour les routes protégées par rôle administrateur, on suit ces étapes :
-  - on va dans l'onglet **Authorization**.
-  - on sélectionne **Basic Auth**.
-  - on entre les identifiants du rôle qu'on souhaite utiliser (par exemple, `admin` ou `client`).
+1. On ajoute au début de l'URL `http://localhost:3000` dans les requêtes.
+2. Pour choisir le type d'utilisateur qu'on souhaite être :
+  - **Authorization**.
+  - **Basic Auth**.
+  - On écrit l'identifiant et le mot de passe de l'utilisateur qu'on veut tester
+3. Si on souhaite mettre à jour des données avec les commandes PUT et PATCH :
+  - **Body**
+  - **raw**
+  - **JSON**
+  - On écrit les modifications qu'on souhaite effectuer.
+  ***Exemple***
+  ```json
+  {
+    "id": 2,
+    "name": "Pizza Margherita",
+    "description": "Pizza traditionnelle avec sauce tomate et fromage",
+    "price": 10.99,
+    "category_id": 1
+  }
+  ```

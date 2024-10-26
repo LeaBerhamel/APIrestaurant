@@ -174,26 +174,26 @@ Pour vérifier que les requêtes de l'API fonctionne, on utilise Postman :
   | Access-Control-Allow-Origin  |      *       |
 
 5. Signification des codes de statut HTTP qui s'affichent à chaque requête
-  - **200 OK**
-    - Indique que la requête a réussi. Le serveur a renvoyé la réponse demandée. 
+    - **200 OK**
+      - Indique que la requête a réussi. Le serveur a renvoyé la réponse demandée. 
 
-  - **201 Created**
-   - Indique que la requête a été réussie et qu’une nouvelle ressource a été créée à la suite de cette requête. 
+    - **201 Created**
+    - Indique que la requête a été réussie et qu’une nouvelle ressource a été créée à la suite de cette requête. 
 
-  - **204 No Content**
-    - Indique que la requête a été réussie, mais qu’il n’y a pas de contenu à renvoyer. 
+    - **204 No Content**
+      - Indique que la requête a été réussie, mais qu’il n’y a pas de contenu à renvoyer. 
 
-  - **400 Bad Request**
-    - Indique que la requête envoyée au serveur est mal formée ou invalide. Cela peut être dû à des données manquantes ou à une syntaxe incorrecte.
+    - **400 Bad Request**
+      - Indique que la requête envoyée au serveur est mal formée ou invalide. Cela peut être dû à des données manquantes ou à une syntaxe incorrecte.
 
-  - **401 Unauthorized**
-    - Indique que l’utilisateur doit s’authentifier pour accéder à la ressource demandée. 
+    - **401 Unauthorized**
+      - Indique que l’utilisateur doit s’authentifier pour accéder à la ressource demandée. 
 
-  - **403 Forbidden**
-    - Indique que le serveur a compris la requête, mais refuse de l’exécuter. Cela peut être dû à des permissions insuffisantes pour accéder à la ressource.
+    - **403 Forbidden**
+      - Indique que le serveur a compris la requête, mais refuse de l’exécuter. Cela peut être dû à des permissions insuffisantes pour accéder à la ressource.
 
-  - **404 Not Found**
-    - Indique que le serveur n’a pas trouvé la ressource demandée. Cela se produit souvent lorsque l’URL demandée est incorrecte ou lorsque la ressource a été supprimée.
+    - **404 Not Found**
+      - Indique que le serveur n’a pas trouvé la ressource demandée. Cela se produit souvent lorsque l’URL demandée est incorrecte ou lorsque la ressource a été supprimée.
 
-  - **500 Internal Server Error**
-    - Indique qu’il y a eu une erreur inattendue sur le serveur lors du traitement de la requête. Cela peut être dû à un bug dans le code du serveur ou à un problème avec la configuration du serveur.
+    - **500 Internal Server Error**
+      - Indique qu’il y a eu une erreur inattendue sur le serveur lors du traitement de la requête. Cela peut être dû à un bug dans le code du serveur ou à un problème avec la configuration du serveur.

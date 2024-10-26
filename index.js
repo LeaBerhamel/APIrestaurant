@@ -22,7 +22,7 @@ db.connect((err) => {
 // Define users for basic authentication
 const users = {
     admin: { password: 'adminpassword', role: 'admin' },
-    user: { password: 'userpassword', role: 'user' }
+    client: { password: 'clientpassword', role: 'client' }
 };
 
 const basicAuth = (req, res, next) => {
@@ -75,14 +75,17 @@ app.get('/item/:id', (req, res) => {
         if (result.length === 0) {
             res.status(404).send('Item non trouvé');
         } else {
-            res.json(result[0]);
+            res.status(200).json(result[0]);
         }
     });
 });
  
 // Route pour ajouter un nouvel item (admin uniquement)
 app.post('/item', basicAuth, authorize('admin'), (req, res) => {
-    const { id, name, price, description, category_id } = req.body;  // Adapte en fonction des colonnes de ta table
+    const { id, name, price, description, category_id } = req.body;  
+    if (!id || !name || !price || !category_id) {
+        return res.status(400).send('Données de requête invalides : un ou plusieurs champs requis sont manquants');
+    }
     const sql = 'INSERT INTO item (id, name, price, description, category_id) VALUES (?, ?, ?, ?, ?)';
     db.query(sql, [id, name, price, description, category_id], (err, result) => {
         if (err) {
@@ -98,6 +101,9 @@ app.post('/item', basicAuth, authorize('admin'), (req, res) => {
 app.put('/item/:id', basicAuth, authorize('admin'), (req, res) => {
     const { id } = req.params;
     const { name, price, description } = req.body;
+    if (!name || !price || !description) {
+        return res.status(400).send('Données de requête invalides : un ou plusieurs champs requis sont manquants');
+    }
     const sql = 'UPDATE item SET name = ?, price = ?, description = ? WHERE id = ?';
     db.query(sql, [name, price, description, id], (err, result) => {
         if (err) {
@@ -108,7 +114,7 @@ app.put('/item/:id', basicAuth, authorize('admin'), (req, res) => {
         if (result.affectedRows === 0) {
             res.status(404).send('Item non trouvé');
         } else {
-            res.json({ message: 'Item mis à jour avec succès' });
+            res.status(200).json({ message: 'Item mis à jour avec succès' });
         }
     });
 });
@@ -126,7 +132,7 @@ app.delete('/item/:id', basicAuth, authorize('admin'), (req, res) => {
         if (result.affectedRows === 0) {
             res.status(404).send('Item non trouvé');
         } else {
-            res.json({ message: 'Item supprimé avec succès' });
+            res.status(204).send();
         }
     });
 });
@@ -134,6 +140,7 @@ app.delete('/item/:id', basicAuth, authorize('admin'), (req, res) => {
 // Route pour filtrer et avoir tous les items
 app.get('/item', (req, res) => {
     const { name, price, description, category_id } = req.query;
+    
     // Début de la requête SQL
     let sql = 'SELECT * FROM item WHERE 1=1';
     const params = [];
@@ -159,13 +166,18 @@ app.get('/item', (req, res) => {
     // Exécution de la requête
     db.query(sql, params, (err, results) => {
         if (err) {
-            console.error('Erreur lors de la récupération des item:', err);
-            res.status(500).send('Erreur lors de la récupération des item');
+            console.error('Erreur lors de la récupération des items:', err);
+            res.status(500).send('Erreur lors de la récupération des items');
             return;
         }
- 
+        
+        if (results.length === 0) {
+            res.status(404).send('Aucun item trouvé');
+            return;
+        }
+
         // Envoi du résultat en JSON
-        res.json(results);
+        res.status(200).json(results);
     });
 });
 
@@ -183,7 +195,7 @@ app.patch('/item/:id', basicAuth, authorize('admin'), (req, res) => {
         if (result.affectedRows === 0) {
             res.status(404).send('Item non trouvé');
         } else {
-            res.json({ message: 'Item mis à jour avec succès' });
+            res.status(200).json({ message: 'Item mis à jour avec succès' });
         }
     });
 });
@@ -198,7 +210,10 @@ app.get('/categories', (req, res) => {
             res.status(500).send('Erreur lors de la récupération des catégories');
             return;
         }
-        res.json(result);
+        if (!result || result.length === 0) {
+            return res.status(404).send('Aucune catégorie trouvée');
+        }
+        res.status(200).json(result);
     });
 }
 );
@@ -216,14 +231,17 @@ app.get('/categories/:id', (req, res) => {
         if (result.length === 0) {
             res.status(404).send('categorie non trouvée');
         } else {
-            res.json(result[0]);
+            res.status(200).json(result[0]);
         }
     });
 });
 
 // Route pour ajouter une nouvelle categorie (admin uniquement)
 app.post('/categories', basicAuth, authorize('admin'), (req, res) => {
-    const { id, name } = req.body;  // Adapte en fonction des colonnes de ta table
+    const { id, name } = req.body; 
+    if (!id || !name) {
+        return res.status(400).send('Données de requête invalides : un ou plusieurs champs requis sont manquants');
+    }
     const sql = 'INSERT INTO categories (id, name) VALUES (?, ?)';
     db.query(sql, [id, name], (err, result) => {
         if (err) {
@@ -249,7 +267,7 @@ app.put('/categories/:id', basicAuth, authorize('admin'), (req, res) => {
         if (result.affectedRows === 0) {
             res.status(404).send('categorie non trouvée');
         } else {
-            res.json({ message: 'categorie mise à jour avec succès' });
+            res.status(200).json({ message: 'Catégorie mise à jour avec succès' });
         }
     });
 });
@@ -267,7 +285,7 @@ app.delete('/categories/:id', basicAuth, authorize('admin'), (req, res) => {
         if (result.affectedRows === 0) {
             res.status(404).send('categorie non trouvée');
         } else {
-            res.json({ message: 'categorie supprimée avec succès' });
+            res.status(204).send();
         }
     });
 });
@@ -286,7 +304,7 @@ app.patch('/categories/:id', basicAuth, authorize('admin'), (req, res) => {
         if (result.affectedRows === 0) {
             res.status(404).send('categorie non trouvé');
         } else {
-            res.json({ message: 'categorie mis à jour avec succès' });
+            res.status(200).json({ message: 'categorie mis à jour avec succès' });
         }
     });
 });
@@ -305,14 +323,17 @@ app.get('/formulas/:id', (req, res) => {
         if (result.length === 0) {
             res.status(404).send('Formula non trouvée');
         } else {
-            res.json(result[0]);
+            res.status(200).json(result[0]);
         }
     });
 });
 
 // Route pour ajouter une nouvelle formula (admin uniquement)
 app.post('/formulas', basicAuth, authorize('admin'), (req, res) => {
-    const { name, price, categories } = req.body;  // Adapte en fonction des colonnes de ta table
+    const { name, price, categories } = req.body;  
+    if (!name || !price || !categories) {
+        return res.status(400).send('Données de requête invalides : un ou plusieurs champs requis sont manquants');
+    }
     const sql = 'INSERT INTO formulas (name, price, categories) VALUES (?, ?, ?)';
     db.query(sql, [name, price, categories], (err, result) => {
         if (err) {
@@ -328,6 +349,9 @@ app.post('/formulas', basicAuth, authorize('admin'), (req, res) => {
 app.put('/formulas/:id', basicAuth, authorize('admin'), (req, res) => {
     const { id } = req.params;
     const { name, price, categories } = req.body;
+    if (!name || !price || !categories) {
+        return res.status(400).send('Données de requête invalides : un ou plusieurs champs requis sont manquants');
+    }
     const sql = 'UPDATE formulas SET name = ?, price = ?, categories = ? WHERE id = ?';
     db.query(sql, [name, price, categories, id], (err, result) => {
         if (err) {
@@ -338,7 +362,7 @@ app.put('/formulas/:id', basicAuth, authorize('admin'), (req, res) => {
         if (result.affectedRows === 0) {
             res.status(404).send('formula non trouvée');
         } else {
-            res.json({ message: 'formula mise à jour avec succès' });
+            res.status(200).json({ message: 'formula mise à jour avec succès' });
         }
     });
 });
@@ -356,7 +380,7 @@ app.delete('/formulas/:id', basicAuth, authorize('admin'), (req, res) => {
         if (result.affectedRows === 0) {
             res.status(404).send('formula non trouvée');
         } else {
-            res.json({ message: 'formula supprimée avec succès' });
+            res.status(204).json({ message: 'formula supprimée avec succès' });
         }
     });
 });
@@ -387,7 +411,7 @@ app.get('/formulas', (req, res) => {
             res.status(500).send('Erreur lors de la récupération des formulas');
             return;
         }
-        res.json(results);
+        res.status(200).json(results);
     });
 });
 
@@ -405,7 +429,7 @@ app.patch('/formulas/:id', basicAuth, authorize('admin'), (req, res) => {
         if (result.affectedRows === 0) {
             res.status(404).send('Formula non trouvé');
         } else {
-            res.json({ message: 'Formula mis à jour avec succès' });
+            res.status(200).json({ message: 'Formula mis à jour avec succès' });
         }
     });
 });

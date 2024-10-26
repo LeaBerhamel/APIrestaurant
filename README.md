@@ -58,11 +58,11 @@ L'API utilise une authentification basique pour limiter l'accès à certaines ro
   - Rôle : `admin`
   
 - ***Utilisateur*** :
-  - Nom d'utilisateur : `user`
-  - Mot de passe : `userpassword`
-  - Rôle : `user`
+  - Nom d'utilisateur : `client`
+  - Mot de passe : `clientpassword`
+  - Rôle : `client`
 
-### Endpoints de l'API (URL spécifiques sur un serveur web qui permettent aux clients d'accéder à des bases de données ou des services via à l'API)
+### Endpoints de l'API (URL spécifiques sur un serveur web qui permettent aux utilisateurs d'accéder à des bases de données ou des services via à l'API)
 
 On utilise des méthodes HTTP : GET, POST, PUT, DELETE, PATCH, OPTIONS.
 
@@ -129,7 +129,7 @@ On utilise des méthodes HTTP : GET, POST, PUT, DELETE, PATCH, OPTIONS.
 - `GET /item?parameters=` : Filtrer les items en fonction du paramètre (nom, description, prix et catégorie).
 - `GET /formulas?parameters=` : Filtrer les formules en fonction du paramètre (nom, prix et catégorie)
 
-### Affichage des méthodes autorisées en fonction du type d'utilisateur
+#### Affichage des méthodes autorisées en fonction du type d'utilisateur
 
 ***OPTIONS***
 - cela s'affiche dès que l'URL `http://localhost:3000` est écrit.
@@ -178,7 +178,7 @@ Pour vérifier que les requêtes de l'API fonctionne, on utilise Postman :
       - La requête a réussi. Le serveur a renvoyé la réponse demandée. 
 
     - **201 Created**
-    - La requête a été réussie et qu’une nouvelle ressource a été créée à la suite de cette requête. 
+      - La requête a été réussie et qu’une nouvelle ressource a été créée à la suite de cette requête. 
 
     - **204 No Content**
       - La requête a été réussie, mais qu’il n’y a pas de contenu à renvoyer. 

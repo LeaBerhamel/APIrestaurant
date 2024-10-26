@@ -19,7 +19,7 @@ db.connect((err) => {
     console.log('Connecté à la base de données MySQL');
 });
 
-// Define users for basic authentication
+// Définir les utilisateurs pour l'authentification basique
 const users = {
     admin: { password: 'adminpassword', role: 'admin' },
     client: { password: 'clientpassword', role: 'client' }
@@ -40,11 +40,11 @@ const basicAuth = (req, res, next) => {
         return res.status(403).send('ACCES INTERDIT');
     }
 
-    req.user = user; // Attach user to the request
+    req.user = user; // Attacher l'utilisateur à la requête
     next();
 };
 
-// Role-based Access Control Middleware
+// Middleware de contrôle d'accès basé sur les rôles des utilisateurs
 const authorize = (role) => {
     return (req, res, next) => {
         if (req.user.role !== role) {
@@ -443,7 +443,7 @@ app.options('', basicAuth, (req, res) => {
         allowedMethods = 'GET, POST, PUT, PATCH, DELETE, OPTIONS';
         res.set('Allow', allowedMethods);
         res.set('Access-Control-Allow-Methods', allowedMethods);
-    } else if (req.user.role === 'user') {
+    } else if (req.user.role === 'client') {
         // Méthodes disponibles pour le client
         allowedMethods = 'GET, OPTIONS';
         res.set('Allow', allowedMethods);
@@ -452,7 +452,7 @@ app.options('', basicAuth, (req, res) => {
         return res.status(403).send('Rôle non autorisé');
     }
 
-    res.set('Access-Control-Allow-Origin', '*'); // Configurer selon les besoins
+    res.set('Access-Control-Allow-Origin', '*'); 
     res.status(200).json({
         message: 'Méthodes autorisées',
         allowedMethods: allowedMethods
